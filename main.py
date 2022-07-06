@@ -1,3 +1,6 @@
+## Made by Tizi-Server (Tizian)
+# Weather api Key musst be make at the openweathermap.org site
+
 # -*- coding: utf-8 -*-
 from cProfile import run
 from time import sleep
@@ -51,7 +54,7 @@ while nutzereingabe != "exit":
         nutzereingabe = input("Frage / Antwort: ")
 
     while nutzereingabe == "Wetter":
-            API_key = "c7e9c062587c337eeeb12c463912148c"
+            API_key = "Your API KEY"
             base_url = "https://api.openweathermap.org/data/2.5/weather?"
 
             city_name = input("Name der Gesuchten Stadt : ")
@@ -126,6 +129,9 @@ while nutzereingabe != "exit":
     while nutzereingabe == "wie geht es dir":
         print("Darauf kann ich nicht antworten weil ich eine Künstliche inteligenz bin auf einem server bin, Ich wünschte ich wäre auch so ein toller mensch wie du")        
         nutzereingabe = input("Frage / Antwort: ")
+    while nutzereingabe == "Google":
+        google_input = input ("Was möchtest du Googlen? : ")
+
 
 
     nutzereingabe = nutzereingabe.lower()
