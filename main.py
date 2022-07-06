@@ -58,23 +58,17 @@ while nutzereingabe != "exit":
             Final_url = base_url + "appid=" + API_key + "&q=" + city_name
             Final_url = Final_url + "&units=metric&lang=de"
             weather_data = requests.get(Final_url).json()
-
-            ##https://api.openweathermap.org/data/2.5/weather?q=Schmalkalden,de&appid=c7e9c062587c337eeeb12c463912148c&units=metric&lang=de
             
             temp = weather_data['main']['temp']
  
             wind_speed = weather_data['wind']['speed']
             
-            
             description = weather_data['weather'][0]['description']
- 
 
             latitude = weather_data['coord']['lat']
- 
 
             longitude = weather_data['coord']['lon']
             
-            # Printing Data
             print('\nTemperature : ',temp)
             print('\nWind Geschwindigkeit : ',wind_speed)
             print('\nBeschreibung : ',description)
