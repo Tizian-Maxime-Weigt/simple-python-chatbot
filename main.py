@@ -6,10 +6,8 @@ import random
 import traceback
 from turtle import exitonclick
 from tkinter import *
-import json
 from datetime import datetime
 import speedtest
-import python_weather
 import asyncio
 import os
 import webbrowser
@@ -26,6 +24,9 @@ import datetime
 import platform
 import threading
 import xml.parsers.expat
+import json
+import requests
+from pprint import pprint
 
 
 zufallsantworten=["Oh, wirklich", "Interessant ...", "Das kann man so sehen", "Ich verstehe ...", "mach dich aus meiner leitung du birne"]
@@ -49,66 +50,85 @@ while nutzereingabe != "exit":
     while nutzereingabe == "":
         nutzereingabe = input("Frage / Antwort: ")
 
-    while nutzereingabe == "wetter":
-        num = float(input("Postleitzahl: "))
-        if num >= 36448:
-            print("https://www.google.com/search?q=wetter+36448")
-            url = 'https://www.google.com/search?q=wetter+36448'
-            webbrowser.open(url)
-            nutzereingabe = input("Frage / Antwort: ")
-        if num >= 99867:
-            print("https://www.google.com/search?q=wetter+99867")
+    while nutzereingabe == "Wetter":
+            API_key = "c7e9c062587c337eeeb12c463912148c"
+            base_url = "https://api.openweathermap.org/data/2.5/weather?"
 
-        
-            nutzereingabe = input("Frage / Antwort: ")
-        
-        else:
-            print("Mhhm habe ich nicht im System")
-            print("Du kannst aber selber nachschauen")
-            print("https://google.de")
-            print("Support@tizi-cloud.de")
-   
+            city_name = input("Name der Gesuchten Stadt : ")
+            Final_url = base_url + "appid=" + API_key + "&q=" + city_name
+            Final_url = Final_url + "&units=metric&lang=de"
+            weather_data = requests.get(Final_url).json()
 
+            ##https://api.openweathermap.org/data/2.5/weather?q=Schmalkalden,de&appid=c7e9c062587c337eeeb12c463912148c&units=metric&lang=de
+            
+            temp = weather_data['main']['temp']
+ 
+            wind_speed = weather_data['wind']['speed']
+            
+            
+            description = weather_data['weather'][0]['description']
+ 
+
+            latitude = weather_data['coord']['lat']
+ 
+
+            longitude = weather_data['coord']['lon']
+            
+            # Printing Data
+            print('\nTemperature : ',temp)
+            print('\nWind Geschwindigkeit : ',wind_speed)
+            print('\nBeschreibung : ',description)
+ 
+            nutzereingabe = input("Frage / Antwort: ")
+
+    while nutzereingabe == "speedtest":
+        def test():
+            s = speedtest.Speedtest()
+            s.get_servers()
+            s.get_best_server()
+            s.download()
+            s.upload()
+            res = s.results.dict()
+            return res["download"], res["upload"], res["ping"]
+        def main():
+            with open('file.csv', 'w') as f:
+                f.write('download,upload,ping\n')
+                for i in range(1):
+                    print('Test im Gange... Bitte warten')
+                    d, u, p = test()
+            for i in range(1):
+                d, u, p = test()
+                print('Ergebnissse')
+                print('Download: {:.2f} Mbit/s\n'.format(d / 1000000))
+                print('Upload: {:.2f} Mbit/s\n'.format(u / 1000000))
+                print('Ping: {}\n'.format(p))
+        if __name__ == '__main__':
+            main ()
         nutzereingabe = input("Frage / Antwort: ")
-
     while nutzereingabe == "Speedtest":
-        st = speedtest.Speedtest()
-  
-        option = int(input('''Was willst du Testen?:  
-  
-        1) Download Geschindigkeit 
-  
-        2) Upload Geschindigkeit  
-  
-        3) Ping (Funktioniert derzeit nicht)
-  
-        Deine Antwort?: '''))
-  
-  
-        if option == 1:  
-            print("Warte der test ist an laufen...")
-            print(st.download())  
-  
-        elif option == 2: 
-            print("Warte der test ist an laufen...")
-            print(st.upload())  
-  
-        elif option == 3:  
-            
-            servernames =[]  
-            
-            st.get_servers(servernames)  
-            print("Warte der test ist an laufen...")
-            print(st.results.ping)  
-  
-        else:
-  
-            print("Falsche eingabe wiederholen...") 
-
-
+        def test():
+            s = speedtest.Speedtest()
+            s.get_servers()
+            s.get_best_server()
+            s.download()
+            s.upload()
+            res = s.results.dict()
+            return res["download"], res["upload"], res["ping"]
+        def main():
+            with open('file.csv', 'w') as f:
+                f.write('download,upload,ping\n')
+                for i in range(1):
+                    print('Test im Gange... Bitte warten')
+                    d, u, p = test()
+            for i in range(1):
+                d, u, p = test()
+                print('Ergebnissse')
+                print('Download: {:.2f} Mbit/s\n'.format(d / 1000000))
+                print('Upload: {:.2f} Mbit/s\n'.format(u / 1000000))
+                print('Ping: {}\n'.format(p))
+        if __name__ == '__main__':
+            main ()
         nutzereingabe = input("Frage / Antwort: ")
-
-    
     while nutzereingabe == "wie geht es dir":
         print("Darauf kann ich nicht antworten weil ich eine Künstliche inteligenz bin auf einem server bin, Ich wünschte ich wäre auch so ein toller mensch wie du")        
         nutzereingabe = input("Frage / Antwort: ")
