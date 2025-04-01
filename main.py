@@ -1,4 +1,4 @@
-## Made by Tizi-Server (Tizian)
+## Made by Tizian Maxime Weigt
 # Weather api Key musst be make at the openweathermap.org site
 
 # -*- coding: utf-8 -*-
